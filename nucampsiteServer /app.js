@@ -21,6 +21,8 @@ const connect = mongoose.connect(url, {
   useUnifiedTopology: true
 });
 
+const uploadRouter = require('./routes/uploadRouter');
+
 const session = require('express-session');
 const FileStore = require('session-file-store')(session);
 const passport = require('passport');
@@ -42,6 +44,7 @@ app.use(express.urlencoded({ extended: false }));
 app.use(cookieParser('12345-67890-09876-54321'));
 app.use(passport.initialize());
 app.use(passport.session());
+app.use('/imageUpload', uploadRouter);
 
 app.use(session({
   name: 'session-id',
